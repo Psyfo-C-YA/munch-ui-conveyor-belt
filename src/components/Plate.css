@@ -1,0 +1,28 @@
+.plate {
+  display: inline-block;
+  width: 150px;
+  height: 150px;
+  margin: 10px;
+  text-align: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.plate.square {
+  border-radius: 0;
+}
+
+.plate.oval {
+  border-radius: 50% / 25%;
+}
+
+.plate.triangular {
+  clip-path: polygon(50% 100%, 0% 0%, 100% 0%);
+}
+
+.food-set {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
