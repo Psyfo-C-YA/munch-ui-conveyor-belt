@@ -1,9 +1,8 @@
 .belt {
   display: flex;
-  overflow-x: auto;
+  flex-wrap: wrap;
   white-space: nowrap;
   padding: 20px;
   border: 2px solid black;
-  height: 200px;
-  background: #e0e0e0;
+  height: 100vh;
 }
