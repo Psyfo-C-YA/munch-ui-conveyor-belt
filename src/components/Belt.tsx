@@ -1,59 +1,147 @@
-// Indicate that this is a client-side component
-"use client"
+// "use client";
 
-// Import necessary modules and components
-import React, { useState, useEffect } from 'react'; // React for component creation and hooks
-import Plate from './Plate'; // Import Plate component
-import { Plate as PlateType, addPlateToBelt, removeOldestPlate, getSushiBelt, removeFoodFromPlate } from '../utils/sushiLogic'; // Import Plate type and utility functions
-import { generateRandomPlate } from '../utils/utils'; // Import utility function to generate random plates
-import { AnimatePresence, motion } from 'framer-motion'; // Import Framer Motion for animations
-import './Belt.css'; // Import CSS for styling
+// import React, { useEffect, useState } from 'react';
+// import { addPlateToBelt, removeOldestPlateFromBelt, listPlatesOnBelt, removeRandomPlateFromBelt, PlateRecord, getBelt } from '../utils/sushiLogic';
+// import PlateComponent from './Plate';
+// import { motion, AnimatePresence } from 'framer-motion';
+// import './Belt.css';
 
-// Define the Belt component
-const Belt: React.FC = () => {
-  // State to hold the current plates on the sushi belt
-  const [sushiBelt, setSushiBelt] = useState<PlateType[]>([]);
+// const Belt = () => {
+//     const [plates, setPlates] = useState<PlateRecord[]>([]);
 
-  // Effect to add a new plate to the belt every 4 seconds
+//     useEffect(() => {
+//         const addPlate = async () => {
+//             await addPlateToBelt();
+//             setPlates([...getBelt()]);
+//         };
+
+//         const removeOldestPlate = async () => {
+//             await removeOldestPlateFromBelt();
+//             setPlates([...getBelt()]);
+//         };
+
+//         // Initially add one plate
+//         addPlate();
+
+//         const listInterval = setInterval(() => {
+//             listPlatesOnBelt();
+//             setPlates([...getBelt()]);
+//         }, 4000);  // Refresh every 4 seconds
+
+//         const addInterval = setInterval(() => {
+//             addPlate();
+//         }, 4000);  // Add plate every 4 seconds
+
+//         const removeInterval = setInterval(() => {
+//             removeOldestPlate();
+//         }, 10000);  // Remove plate every 10 seconds
+
+//         const removeRandomInterval = setInterval(async () => {
+//             await removeRandomPlateFromBelt();
+//             setPlates([...getBelt()]);
+//         }, 15000);  // Remove random plate every 15 seconds
+
+//         return () => {
+//             clearInterval(listInterval);
+//             clearInterval(addInterval);
+//             clearInterval(removeInterval);
+//             clearInterval(removeRandomInterval);
+//         };
+//     }, []);
+
+//     return (
+//         <div className="belt">
+//             <AnimatePresence>
+//                 {plates.map(([id, plate]) => (
+//                     <motion.div
+//                         key={id}
+//                         initial={{ opacity: 0, y: -50 }}
+//                         animate={{ opacity: 1, y: 0 }}
+//                         exit={{ opacity: 0, y: 50 }}
+//                         transition={{ duration: 0.5 }}
+//                     >
+//                         <PlateComponent plate={plate} />
+//                     </motion.div>
+//                 ))}
+//             </AnimatePresence>
+//         </div>
+//     );
+// };
+
+// export default Belt;
+
+// Belt.tsx
+"use client";
+
+import React, { useEffect, useState } from "react";
+import {
+  addPlateToBelt,
+  removeOldestPlateFromBelt,
+  listPlatesOnBelt,
+  removeRandomPlateFromBelt,
+  PlateRecord,
+  getBelt,
+} from "../utils/sushiLogic";
+import PlateComponent from "./Plate";
+import { motion, AnimatePresence } from "framer-motion";
+import "./Belt.css";
+
+const Belt = () => {
+  const [plates, setPlates] = useState<PlateRecord[]>([]);
+
   useEffect(() => {
-    const interval = setInterval(() => {
-      const newPlate: PlateType = generateRandomPlate(); // Generate a new random plate
-      addPlateToBelt(newPlate); // Add the new plate to the sushi belt
-      setSushiBelt(getSushiBelt().map(record => record.plate)); // Update state with the current plates on the belt
-    }, 4000);
+    const addPlate = async () => {
+      await addPlateToBelt();
+      setPlates([...getBelt()]);
+    };
 
-    return () => clearInterval(interval); // Cleanup the interval on component unmount
+    const removeOldestPlate = async () => {
+      await removeOldestPlateFromBelt();
+      setPlates([...getBelt()]);
+    };
+
+    // Initially add one plate
+    addPlate();
+
+    const listInterval = setInterval(() => {
+      listPlatesOnBelt();
+      setPlates([...getBelt()]);
+    }, 4000); // Refresh every 4 seconds
+
+    const addInterval = setInterval(() => {
+      addPlate();
+    }, 4000); // Add plate every 4 seconds
+
+    const removeInterval = setInterval(() => {
+      removeOldestPlate();
+    }, 10000); // Remove plate every 10 seconds
+
+    const removeRandomInterval = setInterval(async () => {
+      await removeRandomPlateFromBelt();
+      setPlates([...getBelt()]);
+    }, 15000); // Remove random plate every 15 seconds
+
+    return () => {
+      clearInterval(listInterval);
+      clearInterval(addInterval);
+      clearInterval(removeInterval);
+      clearInterval(removeRandomInterval);
+    };
   }, []);
 
-  // Effect to remove the oldest plate from the belt every 10 seconds
-  useEffect(() => {
-    const interval = setInterval(() => {
-      removeOldestPlate(); // Remove the oldest plate from the sushi belt
-      setSushiBelt(getSushiBelt().map(record => record.plate)); // Update state with the current plates on the belt
-    }, 10000);
-
-    return () => clearInterval(interval); // Cleanup the interval on component unmount
-  }, []);
-
-  // Function to handle removing a specific food item from a plate
-  const handleRemoveFood = (plateId: number, food: string) => {
-    removeFoodFromPlate(plateId, food); // Remove the specified food item from the plate
-    setSushiBelt(getSushiBelt().map(record => record.plate)); // Update state with the current plates on the belt
-  };
-
-  // Render the belt component with animated plates
   return (
     <div className="belt">
       <AnimatePresence>
-        {sushiBelt.map(plate => (
+        {plates.map(([id, plate]) => (
           <motion.div
-            key={plate.id} // Unique key for each plate
-            initial={{ opacity: 0, x: -100 }} // Initial animation state
-            animate={{ opacity: 1, x: 0 }} // Animation state when appearing
-            exit={{ opacity: 0, x: 100 }} // Animation state when exiting
-            transition={{ duration: 0.5 }} // Animation duration
+            key={id}
+            layout
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 50 }}
+            transition={{ duration: 0.5 }}
           >
-            <Plate key={plate.id} plate={plate} removeFood={handleRemoveFood} /> {/* Render Plate component */}
+            <PlateComponent plate={plate} />
           </motion.div>
         ))}
       </AnimatePresence>
@@ -61,5 +149,4 @@ const Belt: React.FC = () => {
   );
 };
 
-// Export the Belt component as default
 export default Belt;

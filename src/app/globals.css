@@ -2,26 +2,4 @@
 @tailwind components;
 @tailwind utilities;
 
-/* .belt {
- 
-}
 
-.plate {
-  border: 2px solid black;
-  border-radius: 50%;
-  width: 100px;
-  height: 100px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.food {
-  cursor: pointer;
-  margin: 5px 0;
-}
-
-.info {
-  margin-bottom: 20px;
-} */

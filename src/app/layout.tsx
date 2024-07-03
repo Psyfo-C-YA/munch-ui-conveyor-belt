@@ -5,7 +5,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Munch UI Conveyor Belt",
+  title: "Munch UI Conveyor Belt ",
   description: "A dynamic sushi conveyor belt application built with React, NextJs and TypeScript.",
 };
 
