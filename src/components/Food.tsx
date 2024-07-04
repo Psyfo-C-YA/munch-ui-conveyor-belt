@@ -1,4 +1,4 @@
-import React from 'react';
+// Food.tsx
 import './Food.css';
 
 const FoodComponent: React.FC<{ food: string, onClick: () => void }> = ({ food, onClick }) => {

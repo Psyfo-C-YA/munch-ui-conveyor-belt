@@ -1,27 +1,28 @@
 .plate {
     display: inline-block;
-    width: 150px;
-    height: 150px;
+    width: 200px;
+    min-height: 200px;
     margin: 10px;
     text-align: center;
     border-radius: 50%;
     transition: all 0.3s ease;
-    padding: 1rem;
+    padding: 2rem;
   }
   
   .plate.square {
     border-radius: 0;
-    padding: 1rem;
+    padding: 2rem;
   }
   
   .plate.oval {
     border-radius: 50% / 25%;
-    padding: 1rem;
+    padding: 2rem;
   }
   
   .plate.triangular {
     clip-path: polygon(50% 100%, 0% 0%, 100% 0%);
-    padding: 1.5rem;
+    padding: 2rem;
+    min-height: 200px;
   }
   
   .food-set {

@@ -1,3 +1,4 @@
+// Plate.ts
 export type FoodSet = Set<string>;
 
 export class Plate {
