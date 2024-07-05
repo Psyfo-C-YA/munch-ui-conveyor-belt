@@ -1,12 +1,15 @@
-// Food.tsx
-import './Food.css';
+import "./Food.css";
 
-const FoodComponent: React.FC<{ food: string, onClick: () => void }> = ({ food, onClick }) => {
-    return (
-        <div className="food" onClick={onClick}>
-            {food}
-        </div>
-    );
+// Food component to display individual food items on a plate
+const FoodComponent: React.FC<{ food: string; onClick: () => void }> = ({
+  food,
+  onClick,
+}) => {
+  return (
+    <div className="food" onClick={onClick}>
+      {food}
+    </div>
+  );
 };
 
 export default FoodComponent;

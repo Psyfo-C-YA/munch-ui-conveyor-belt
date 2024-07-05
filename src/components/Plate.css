@@ -1,34 +1,37 @@
 .plate {
-    display: inline-block;
-    width: 200px;
-    min-height: 200px;
-    margin: 10px;
-    text-align: center;
-    border-radius: 50%;
-    transition: all 0.3s ease;
-    padding: 2rem;
-  }
-  
-  .plate.square {
-    border-radius: 0;
-    padding: 2rem;
-  }
-  
-  .plate.oval {
-    border-radius: 50% / 25%;
-    padding: 2rem;
-  }
-  
-  .plate.triangular {
-    clip-path: polygon(50% 100%, 0% 0%, 100% 0%);
-    padding: 2rem;
-    min-height: 200px;
-  }
-  
-  .food-set {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  
+  display: inline-block;
+  width: 200px;
+  min-height: 200px;
+  margin: 10px;
+  text-align: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  padding: 2rem;
+}
+
+.plate.square {
+  border-radius: 0;
+  padding: 2rem;
+}
+
+.plate.oval {
+  border-radius: 50% / 25%;
+  padding: 2rem;
+}
+
+.plate.triangular {
+  clip-path: polygon(50% 100%, 0% 0%, 100% 0%);
+  padding: 2rem;
+  min-height: 200px;
+}
+
+.food-set {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.plate-size {
+   @apply text-lg font-semibold;
+}

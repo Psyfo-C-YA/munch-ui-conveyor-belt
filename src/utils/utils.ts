@@ -2,7 +2,7 @@ import { Platter } from "./Plate";
 
 // Function to get a random plate with random attributes
 export const getRandomPlate = () => {
-  const sizes = [10, 15, 20, 25];
+  const sizes = [15, 25, 35];
   const colors = ["LightCoral", "CornflowerBlue", "MediumSeaGreen", "Gold"];
   const foods = [
     new Set(["Sushi", "Sashimi"]),

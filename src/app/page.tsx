@@ -1,4 +1,3 @@
-// page.tsx
 import Belt from "@/components/Belt";
 
 export default function Home() {

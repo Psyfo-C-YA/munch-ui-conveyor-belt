@@ -8,19 +8,34 @@ import {
   removeRandomPlateFromBelt,
   PlateRecord,
   getBelt,
+  clearBelt,
 } from "../utils/sushiLogic";
 import PlateComponent from "./Plate";
 import { motion, AnimatePresence } from "framer-motion";
 import "./Belt.css";
 
+// Belt component to manage and display sushi plates on the belt
 const Belt = () => {
   const [plates, setPlates] = useState<PlateRecord[]>([]);
 
+  const MAX_PLATES = 16; // Maximum number of plates on the belt
+
   useEffect(() => {
+    // Function to reset the belt and state
+    const resetBelt = () => {
+      clearBelt();
+      setPlates([]);
+    };
+
+    // Reset the belt and state on mount
+    resetBelt();
+
     // Function to add a plate and update state
     const addPlate = async () => {
-      await addPlateToBelt();
-      setPlates([...getBelt()]);
+      if (plates.length < MAX_PLATES) {
+        await addPlateToBelt();
+        setPlates([...getBelt()]);
+      }
     };
 
     // Function to remove the oldest plate and update state
@@ -29,22 +44,19 @@ const Belt = () => {
       setPlates([...getBelt()]);
     };
 
-    // Function to list plates and update state
-    const listPlates = () => {
-      listPlatesOnBelt();
+    // Function to remove a random plate and update state
+    const removeRandomPlate = async () => {
+      await removeRandomPlateFromBelt();
       setPlates([...getBelt()]);
     };
 
-    // // Initial plate addition
-    // addPlate();
+    // Initial plate addition
+    addPlate();
 
     // Set intervals for adding, removing, and listing plates
     const addInterval = setInterval(addPlate, 4000); // Add plate every 4 seconds
     const removeInterval = setInterval(removeOldestPlate, 10000); // Remove oldest plate every 10 seconds
-    const removeRandomInterval = setInterval(async () => {
-      await removeRandomPlateFromBelt();
-      setPlates([...getBelt()]);
-    }, Math.random() * (20000 - 10000) + 10000); // Remove random plate between 10 and 20 seconds
+    const removeRandomInterval = setInterval(removeRandomPlate, Math.random() * 10000 + 10000); // Remove random plate between 10 and 20 seconds
 
     // Clear intervals on component unmount
     return () => {

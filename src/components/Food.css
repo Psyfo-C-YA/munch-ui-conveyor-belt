@@ -1,13 +1,3 @@
-/* Food.css */
 .food {
-  padding: 5px;
-  margin: 5px;
-  border: 1px solid black;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.food:hover {
-  background-color: #f0f0f0;
+  @apply p-2 m-1 bg-white border border-gray-300 rounded cursor-pointer hover:bg-gray-200;
 }

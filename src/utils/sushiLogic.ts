@@ -10,6 +10,11 @@ const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 // Function to get the current state of the belt
 export const getBelt = () => belt;
 
+// Function to clear the belt
+export const clearBelt = () => {
+  belt = [];
+};
+
 // Function to add a plate to the belt
 export const addPlateToBelt = async () => {
   const plate = getRandomPlate();
