@@ -35,6 +35,7 @@ const Belt = () => {
       if (plates.length < MAX_PLATES) {
         await addPlateToBelt();
         setPlates([...getBelt()]);
+        listPlatesOnBelt(); // Log the state of the belt after adding a plate
       }
     };
 
@@ -42,12 +43,14 @@ const Belt = () => {
     const removeOldestPlate = async () => {
       await removeOldestPlateFromBelt();
       setPlates([...getBelt()]);
+      listPlatesOnBelt(); // Log the state of the belt after removing a plate
     };
 
     // Function to remove a random plate and update state
     const removeRandomPlate = async () => {
       await removeRandomPlateFromBelt();
       setPlates([...getBelt()]);
+      listPlatesOnBelt(); // Log the state of the belt after removing a plate randomly
     };
 
     // Initial plate addition
@@ -57,6 +60,7 @@ const Belt = () => {
     const addInterval = setInterval(addPlate, 4000); // Add plate every 4 seconds
     const removeInterval = setInterval(removeOldestPlate, 10000); // Remove oldest plate every 10 seconds
     const removeRandomInterval = setInterval(removeRandomPlate, Math.random() * 10000 + 10000); // Remove random plate between 10 and 20 seconds
+
 
     // Clear intervals on component unmount
     return () => {
